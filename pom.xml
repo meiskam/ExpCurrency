@@ -59,6 +59,13 @@
       <version>1.5</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jnbt</groupId>
+      <artifactId>JNBT</artifactId>
+      <version>1.4</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/JNBT_1.4.jar</systemPath>
+   </dependency>
   </dependencies>
 
   <build>
@@ -122,6 +129,7 @@
               <Implementation-Version>${project.version}${describe}</Implementation-Version>
               <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
               <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+              <Class-Path>ExpMoney/JNBT_1.4.jar lib/JNBT_1.4.jar JNBT_1.4.jar ../lib/JNBT_1.4.jar ../JNBT_1.4.jar</Class-Path>
             </manifestEntries>
           </archive>
         </configuration>
