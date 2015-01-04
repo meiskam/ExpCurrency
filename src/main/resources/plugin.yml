@@ -1,0 +1,7 @@
+name: ExpMoney
+version: ${project.version}${describe}
+description: Vault interface that uses experience
+authors: [meiskam, killermantime]
+
+main: org.shininet.bukkit.expmoney.ExpMoney
+database: false
