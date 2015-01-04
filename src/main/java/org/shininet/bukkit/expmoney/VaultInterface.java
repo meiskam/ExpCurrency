@@ -2,15 +2,15 @@ package org.shininet.bukkit.expmoney;
 
 import java.util.List;
 
-import org.bukkit.OfflinePlayer;
-
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+
+import org.bukkit.OfflinePlayer;
 
 public class VaultInterface implements Economy {
 
 	@Override
-	public boolean isEnabled() {	
+	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
 	}
