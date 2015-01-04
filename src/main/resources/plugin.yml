@@ -5,3 +5,5 @@ authors: [meiskam, killermantime]
 
 main: org.shininet.bukkit.expmoney.ExpMoney
 database: false
+
+depend: [Vault]
