@@ -7,9 +7,13 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.ServicePriority;
+import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jnbt.NBTInputStream;
 import org.jnbt.Tag;
@@ -28,23 +32,29 @@ public class ExpMoney extends JavaPlugin {
 		getCommand("ExpMoney").setExecutor(commandExecutor);
 		playersFolderFile = new File(getServer().getWorlds().get(0).getWorldFolder(), "players");
 		playerdataFolderFile = new File(getServer().getWorlds().get(0).getWorldFolder(), "playerdata");
+		
+		if (getServer().getPluginManager().getPlugin("Vault") != null){
+			final ServicesManager sm = getServer().getServicesManager();
+			sm.register(Economy.class, new VaultInterface(this), this, ServicePriority.Highest);
+			getLogger().info("Registered Vault interface.");
+		}
 	}
 
 	@SuppressWarnings("deprecation")
-	public Object getPlayerNBTMap(String player) {
+	protected Object getPlayerNBTMap(String player) {
 		return getPlayerNBTMap(getServer().getOfflinePlayer(player));
 	}
 
-	public Object getPlayerNBTMap(OfflinePlayer player) {
-		return getPlayerNBTMap(player, true);
+	protected File getPlayerFile(OfflinePlayer player) {
+		return new File(playerdataFolderFile, player.getUniqueId().toString().concat(".dat"));
 	}
 
-	private Object getPlayerNBTMap(OfflinePlayer player, boolean isUUIDFilename) {
+	private Object getPlayerNBTMap(OfflinePlayer player) {
 		if (!player.hasPlayedBefore()) {
 			return null;
 		}
 
-		File playerFile = new File(playerdataFolderFile, ((isUUIDFilename)?(player.getUniqueId().toString()):(player.getName())).concat(".dat"));
+		File playerFile = getPlayerFile(player);
 		NBTInputStream playerNBTStream;
 		try {
 			playerNBTStream = new NBTInputStream(
@@ -78,5 +88,13 @@ public class ExpMoney extends JavaPlugin {
 			}
 		}
 		return tagsMap;
+	}
+
+	protected boolean isPlayerOnline(String player) {
+		return (getServer().getPlayer(player) != null);
+	}
+
+	protected boolean isPlayerOnline(OfflinePlayer player) {
+		return (player.getPlayer() != null);
 	}
 }
