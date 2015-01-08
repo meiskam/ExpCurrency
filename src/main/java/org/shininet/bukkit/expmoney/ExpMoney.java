@@ -20,16 +20,16 @@ import org.jnbt.Tag;
 
 public class ExpMoney extends JavaPlugin {
 	private ExpMoneyCommandExecutor commandExecutor;
-	private ExpMoneyListener listener;
+	//private ExpMoneyListener listener;
 	private File playersFolderFile;
 	private File playerdataFolderFile;
 	protected VaultInterface vaultInterface;
 
 	@Override
 	public void onEnable() {
-		listener = new ExpMoneyListener(this);
+		//listener = new ExpMoneyListener(this);
 		commandExecutor = new ExpMoneyCommandExecutor(this);
-		getServer().getPluginManager().registerEvents((Listener) listener, (Plugin) this);
+		//getServer().getPluginManager().registerEvents((Listener) listener, (Plugin) this);
 		getCommand("ExpMoney").setExecutor(commandExecutor);
 		playersFolderFile = new File(getServer().getWorlds().get(0).getWorldFolder(), "players");
 		playerdataFolderFile = new File(getServer().getWorlds().get(0).getWorldFolder(), "playerdata");
