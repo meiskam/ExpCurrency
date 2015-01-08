@@ -20,10 +20,10 @@ public class ExpMoneyCommandExecutor implements CommandExecutor {
 
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
-            	sender.sendMessage("This command can not be used from the console");
+            	sender.sendMessage("This command must be used by a player");
             	return true;
             }
-            sender.sendMessage("Balance: " + plugin.vaultInterface.getBalance((Player) sender));
+            sender.sendMessage("Balance: " + plugin.vaultInterface.format(plugin.vaultInterface.getBalance((Player) sender)));
             return true;
         }
 		return false;
