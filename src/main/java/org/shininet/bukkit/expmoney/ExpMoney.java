@@ -23,6 +23,7 @@ public class ExpMoney extends JavaPlugin {
 	private ExpMoneyListener listener;
 	private File playersFolderFile;
 	private File playerdataFolderFile;
+	protected VaultInterface vaultInterface;
 
 	@Override
 	public void onEnable() {
@@ -35,7 +36,7 @@ public class ExpMoney extends JavaPlugin {
 		
 		if (getServer().getPluginManager().getPlugin("Vault") != null){
 			final ServicesManager sm = getServer().getServicesManager();
-			sm.register(Economy.class, new VaultInterface(this), this, ServicePriority.Highest);
+			sm.register(Economy.class, vaultInterface = new VaultInterface(this), this, ServicePriority.Highest);
 			getLogger().info("Registered Vault interface.");
 		}
 	}
