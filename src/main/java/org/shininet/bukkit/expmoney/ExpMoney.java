@@ -97,4 +97,38 @@ public class ExpMoney extends JavaPlugin {
 	protected boolean isPlayerOnline(OfflinePlayer player) {
 		return (player.getPlayer() != null);
 	}
+
+	protected static int getExpNextLevel(int level) {
+		/*	http://minecraft.gamepedia.com/Experience#Leveling_up
+		 * 	2[Current Level] + 7 (at levels 0-15)
+			5[Current Level] - 38 (at levels 16-30)
+			9[Current Level] - 158 (at level 31+)
+		 */
+		if (level >= 31) {
+			return (9 * level) - 158;
+		} else if (level >= 16) {
+			return (5 * level) - 38;
+		} else {
+			return (2 * level) + 7;
+		}
+	}
+
+	protected static int getTotalExp(int level) {
+		return getTotalExp(level, (float) 0);
+	}
+
+	protected static int getTotalExp(int level, float percent) {
+		/*	http://minecraft.gamepedia.com/Experience#Leveling_up
+		 * 	[Level]^2 + 6[Level] (at levels 0-15)
+			2.5[Level]^2 - 40.5[Level] + 360 (at levels 16-30)
+			4.5[Level]^2 - 162.5[Level] + 2220 (at level 31+)
+		 */
+		if (level >= 31) {
+			return (int) ((4.5 * level * level) - (162.5 * level) + 2220 + (percent * getExpNextLevel(level)));
+		} else if (level >= 16) {
+			return (int) ((2.5 * level * level) - (40.5 * level) + 360 + (percent * getExpNextLevel(level)));
+		} else {
+			return (int) ((level * level) + (6 * level) + (percent * getExpNextLevel(level)));
+		}
+	}
 }

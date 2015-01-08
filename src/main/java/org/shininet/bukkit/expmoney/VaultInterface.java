@@ -8,6 +8,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 public class VaultInterface implements Economy {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
@@ -26,7 +27,7 @@ public class VaultInterface implements Economy {
 
 	@Override
 	public String getName() {
-		return "ExpMoney";
+		return plugin.getName();
 	}
 
 	@Override
@@ -84,10 +85,15 @@ public class VaultInterface implements Economy {
 		return getBalance(plugin.getServer().getOfflinePlayer(playerName));
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
-	public double getBalance(OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getBalance(OfflinePlayer playerOff) {
+		if (playerOff.isOnline()) {
+			Player playerOn = (Player)playerOff;
+			return plugin.getTotalExp(playerOn.getLevel(), playerOn.getExp());
+		} else {
+			return 0; //TODO implement offline
+		}
 	}
 
 	@Override
@@ -100,6 +106,21 @@ public class VaultInterface implements Economy {
 		return getBalance(player);
 	}
 
+	public boolean setBalance(OfflinePlayer playerOff, double amountD) {
+		if (playerOff.isOnline()) {
+			Player playerOn = (Player)playerOff;
+
+			playerOn.setTotalExperience(0);
+			playerOn.setLevel(0);
+			playerOn.setExp(0);
+			playerOn.giveExp((int) amountD);
+
+			return true;
+		} else {
+			return false; //TODO implement offline
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean has(String playerName, double amount) {
@@ -108,8 +129,7 @@ public class VaultInterface implements Economy {
 
 	@Override
 	public boolean has(OfflinePlayer player, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+		return (getBalance(player) >= amount);
 	}
 
 	@Override
@@ -130,8 +150,16 @@ public class VaultInterface implements Economy {
 
 	@Override
 	public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-		// TODO Auto-generated method stub
-		return null;
+		if (has(player, amount)) {
+			double balanceNew = getBalance(player) - amount;
+			if (setBalance(player, balanceNew)) {
+				return new EconomyResponse(amount, balanceNew, ResponseType.SUCCESS, null);
+			} else {
+				return new EconomyResponse((double) 0, getBalance(player), ResponseType.FAILURE, "Player is offline");
+			}
+		} else {
+			return new EconomyResponse((double) 0, getBalance(player), ResponseType.FAILURE, "Insufficient funds");
+		}
 	}
 
 	@Override
@@ -151,9 +179,20 @@ public class VaultInterface implements Economy {
 	}
 
 	@Override
-	public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse depositPlayer(OfflinePlayer playerOff, double amount) {
+		if (hasAccount(playerOff)) {
+			if (playerOff.isOnline()) {
+				Player playerOn = (Player)playerOff;
+
+				playerOn.giveExp((int) amount);
+
+				return new EconomyResponse(amount, this.getBalance(playerOff), ResponseType.SUCCESS, null);
+			} else {
+				return new EconomyResponse((double) 0, (double) 0, ResponseType.FAILURE, "Player is offline"); //TODO implement offline
+			}
+		} else {
+			return new EconomyResponse((double) 0, (double) 0, ResponseType.FAILURE, "Player does not exist");
+		}
 	}
 
 	@Override
