@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.shininet.bukkit</groupId>
-  <artifactId>ExpMoney</artifactId>
+  <artifactId>ExpCurrency</artifactId>
   <packaging>jar</packaging>
   <version>0.1-SNAPSHOT</version>
-  <name>ExpMoney</name>
+  <name>ExpCurrency</name>
   
   <organization>
     <name>ShiniNet</name>
@@ -17,14 +17,14 @@
   </properties>
   
   <scm>
-    <developerConnection>scm:git:git@github.com:meiskam/ExpMoney.git</developerConnection>
-    <connection>scm:git:git://github.com/meiskam/ExpMoney.git</connection>
-    <url>https://github.com/meiskam/ExpMoney/tree/master/</url>
+    <developerConnection>scm:git:git@github.com:meiskam/ExpCurrency.git</developerConnection>
+    <connection>scm:git:git://github.com/meiskam/ExpCurrency.git</connection>
+    <url>https://github.com/meiskam/ExpCurrency/tree/master/</url>
   </scm>
   
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/meiskam/ExpMoney/issues</url>
+    <url>https://github.com/meiskam/ExpCurrency/issues</url>
   </issueManagement>
   
   <repositories>
@@ -129,7 +129,7 @@
               <Implementation-Version>${project.version}${describe}</Implementation-Version>
               <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
               <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-              <Class-Path>ExpMoney/JNBT_1.4.jar lib/JNBT_1.4.jar JNBT_1.4.jar ../lib/JNBT_1.4.jar ../JNBT_1.4.jar</Class-Path>
+              <Class-Path>ExpCurrency/JNBT_1.4.jar lib/JNBT_1.4.jar JNBT_1.4.jar ../lib/JNBT_1.4.jar ../JNBT_1.4.jar</Class-Path>
             </manifestEntries>
           </archive>
         </configuration>

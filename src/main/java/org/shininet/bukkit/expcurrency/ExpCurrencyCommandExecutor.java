@@ -1,20 +1,20 @@
-package org.shininet.bukkit.expmoney;
+package org.shininet.bukkit.expcurrency;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ExpMoneyCommandExecutor implements CommandExecutor {
-	ExpMoney plugin;
+public class ExpCurrencyCommandExecutor implements CommandExecutor {
+	ExpCurrency plugin;
 
-	public ExpMoneyCommandExecutor(ExpMoney expMoney) {
+	public ExpCurrencyCommandExecutor(ExpCurrency expMoney) {
 		plugin = expMoney;
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!cmd.getName().equalsIgnoreCase("ExpMoney")) {
+        if (!cmd.getName().equalsIgnoreCase("ExpCurrency")) {
             return false;
         }
 

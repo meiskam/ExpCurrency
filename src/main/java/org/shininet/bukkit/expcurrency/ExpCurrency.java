@@ -1,4 +1,4 @@
-package org.shininet.bukkit.expmoney;
+package org.shininet.bukkit.expcurrency;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -7,17 +7,17 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ExpMoney extends JavaPlugin {
-	private ExpMoneyCommandExecutor commandExecutor;
-	//private ExpMoneyListener listener;
+public class ExpCurrency extends JavaPlugin {
+	private ExpCurrencyCommandExecutor commandExecutor;
+	//private ExpCurrencyListener listener;
 	VaultInterface vaultInterface;
 
 	@Override
 	public void onEnable() {
-		//listener = new ExpMoneyListener(this);
-		commandExecutor = new ExpMoneyCommandExecutor(this);
+		//listener = new ExpCurrencyListener(this);
+		commandExecutor = new ExpCurrencyCommandExecutor(this);
 		//getServer().getPluginManager().registerEvents((Listener) listener, (Plugin) this);
-		getCommand("ExpMoney").setExecutor(commandExecutor);
+		getCommand("ExpCurrency").setExecutor(commandExecutor);
 
 		if (getServer().getPluginManager().getPlugin("Vault") != null){
 			final ServicesManager sm = getServer().getServicesManager();

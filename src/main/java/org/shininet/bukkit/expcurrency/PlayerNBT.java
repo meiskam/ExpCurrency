@@ -1,4 +1,4 @@
-package org.shininet.bukkit.expmoney;
+package org.shininet.bukkit.expcurrency;
 
 import java.io.EOFException;
 import java.io.File;
@@ -18,7 +18,7 @@ import org.jnbt.Tag;
 
 public final class PlayerNBT {
 	//vars
-	
+
 	private Map<String, Tag> tagMap;
 	private OfflinePlayer playerOff;
 	private File playerFile;
@@ -26,12 +26,12 @@ public final class PlayerNBT {
 	private int exp;
 	private int level;
 	private float percent;
-	
+
 	private static File playerdataFolderFile = new File(Bukkit.getServer().getWorlds().get(0).getWorldFolder(), "playerdata");
 	private static String keyLevel = "XpLevel";
 	private static String keyPercent = "XpP";
 	private static String keyTotal = "XpTotal";
-	
+
 	//constructor
 
 	public PlayerNBT(OfflinePlayer playerOffline) throws PlayerNBTException {
@@ -94,13 +94,13 @@ public final class PlayerNBT {
 			percent = 0F;
 		}
 
-		exp = ExpMoney.getTotalExp(level, percent);
+		exp = ExpCurrency.getTotalExp(level, percent);
 	}
 	
 	//method
 
 	void calculateExp() {
-		setExp(ExpMoney.getTotalExp(level, percent));
+		setExp(ExpCurrency.getTotalExp(level, percent));
 	}
 
 	public int getLevel() {
@@ -146,7 +146,7 @@ public final class PlayerNBT {
 		float percent = 0;
 		int expNextLevel = 0;
 
-		while ((expNextLevel = ExpMoney.getExpNextLevel(level)) > amount) {
+		while ((expNextLevel = ExpCurrency.getExpNextLevel(level)) > amount) {
 			level++;
 			amount -= expNextLevel;
 		}

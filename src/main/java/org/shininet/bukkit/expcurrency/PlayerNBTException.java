@@ -1,7 +1,7 @@
-package org.shininet.bukkit.expmoney;
+package org.shininet.bukkit.expcurrency;
 
 public class PlayerNBTException extends Exception {
-	private static final long serialVersionUID = 4564419109098084472L;
+	private static final long serialVersionUID = 3690248731098763971L;
 	public PlayerNBTException() {
         super();
     }

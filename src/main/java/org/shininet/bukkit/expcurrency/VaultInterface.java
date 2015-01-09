@@ -1,4 +1,4 @@
-package org.shininet.bukkit.expmoney;
+package org.shininet.bukkit.expcurrency;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 public class VaultInterface implements Economy {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	private static EconomyResponse notImpl = new EconomyResponse(0D, 0D, ResponseType.NOT_IMPLEMENTED, (String)null);
-	private ExpMoney plugin;
+	private ExpCurrency plugin;
 
-	public VaultInterface(ExpMoney expMoney) {
-		plugin = expMoney;
+	public VaultInterface(ExpCurrency expCurrency) {
+		plugin = expCurrency;
 	}
 
 	@Override
