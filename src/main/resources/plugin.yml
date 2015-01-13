@@ -7,8 +7,3 @@ main: org.shininet.bukkit.expcurrency.ExpCurrency
 database: false
 
 depend: [Vault]
-
-commands:
-  ExpCurrency:
-    description: GIMMEH MAH MONEY
-    aliases: money

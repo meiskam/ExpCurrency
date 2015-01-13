@@ -8,17 +8,11 @@ import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ExpCurrency extends JavaPlugin {
-	private ExpCurrencyCommandExecutor commandExecutor;
 	//private ExpCurrencyListener listener;
 	VaultInterface vaultInterface;
 
 	@Override
 	public void onEnable() {
-		//listener = new ExpCurrencyListener(this);
-		commandExecutor = new ExpCurrencyCommandExecutor(this);
-		//getServer().getPluginManager().registerEvents((Listener) listener, (Plugin) this);
-		getCommand("ExpCurrency").setExecutor(commandExecutor);
-
 		if (getServer().getPluginManager().getPlugin("Vault") != null){
 			final ServicesManager sm = getServer().getServicesManager();
 			sm.register(Economy.class, vaultInterface = new VaultInterface(this), this, ServicePriority.Highest);
