@@ -150,7 +150,7 @@ public final class PlayerNBT {
 		float percent = 0;
 		int expNextLevel = 0;
 
-		while ((expNextLevel = ExpCurrency.getExpNextLevel(level)) > amount) {
+		while ((expNextLevel = ExpCurrency.getExpNextLevel(level)) < amount) {
 			level++;
 			amount -= expNextLevel;
 		}
