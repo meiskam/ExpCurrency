@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.jnbt.CompoundTag;
 import org.jnbt.FloatTag;
 import org.jnbt.IntTag;
 import org.jnbt.NBTInputStream;
@@ -50,14 +51,9 @@ public final class PlayerNBT {
 			throw new PlayerNBTException("Error opening NBT stream: " + playerFile.getName(), e);
 		}
 
-		tagMap = new LinkedHashMap<String, Tag>();
-
+		Tag tagInput = null;
 		try {
-			Tag tag;
-			while (true) {
-				tag = playerNBTStream.readTag();
-				tagMap.put(tag.getName(), tag);
-			}
+			tagInput = playerNBTStream.readTag();
 		} catch (EOFException e) {
 			// break while, end of file
 		} catch (IOException e) {
@@ -69,6 +65,14 @@ public final class PlayerNBT {
 				throw new PlayerNBTException("Error closing NBT stream: " + playerFile.getName(), e);
 			}
 		}
+		CompoundTag cTagInput = null;
+		try {
+			cTagInput = (CompoundTag)tagInput;
+		} catch (ClassCastException e) {
+			throw new PlayerNBTException("NBT file did not contain a compound", e);
+		}
+
+		tagMap = new LinkedHashMap<String, Tag>(cTagInput.getValue());
 
 		IntTag XpLevel;
 		try {
@@ -172,12 +176,10 @@ public final class PlayerNBT {
 			throw new PlayerNBTException("Error opening NBT stream: " + playerFile.getName(), e);
 		}
 
-		for (Tag value : tagMap.values()) {
-			try {
-				playerNBTStream.writeTag(value);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			playerNBTStream.writeTag(new CompoundTag("", tagMap));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		try {
