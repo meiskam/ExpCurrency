@@ -1,7 +1,7 @@
 name: ExpCurrency
 version: ${project.version}${describe}
 description: Vault interface that uses experience
-authors: [meiskam, killermantime]
+author: meiskam
 
 main: org.shininet.bukkit.expcurrency.ExpCurrency
 database: false
