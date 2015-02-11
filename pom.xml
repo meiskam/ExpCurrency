@@ -4,7 +4,7 @@
   <groupId>org.shininet.bukkit</groupId>
   <artifactId>ExpCurrency</artifactId>
   <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.2</version>
   <name>ExpCurrency</name>
   
   <organization>
